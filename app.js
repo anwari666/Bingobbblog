@@ -8,12 +8,7 @@ function Guess(email, angka) {
 
     // returns true when this object contains a number
     this.contains = function (num) {
-        for (var i = 0; i < this.angka.length; i++) {
-            if (this.angka[i] == num) {
-                return true; // langsung break
-            }
-        }
-        return false;
+        return containsNum(this.angka, num);
     };
 
     this.getAngka = function(){
@@ -72,7 +67,7 @@ function Result() {
 
     this.addNew = function (num) {
 
-        if (! this.angka.some(function(elmt){ return elmt === num; })) { // check if a number already exists in an array. needs to be refactored.
+        if (! containsNum(this.angka, num)) { // check if a number already exists in an array. needs to be refactored.
             this.angka.push(num);
             guesses.cekIsi(this.angka);
         }
@@ -81,6 +76,14 @@ function Result() {
         }
     };
 
+}
+
+
+// helper function for array. where should i put it?
+var containsNum = function(arr, num){
+    return arr.some(function(elmt){ 
+        return elmt === num;            // pretty slick. it immediately returns when it matches a number... i'll use this over the for.. loop
+    });
 }
 
 var guess_1 = new Guess("anwari.ilman@gmail.com", [3, 9, 11, 14, 17]);
