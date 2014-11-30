@@ -17,7 +17,7 @@ function Guess(email, angka) {
 }
 
 /*
-Class Guesses (Guesses)
+Class Guesses
 contains array of Guess / list of guesses
 and some methods to add new Guess and add new Guess into the list of guesses
 */
@@ -62,6 +62,11 @@ function Guesses() {
     };
 }
 
+/*
+Class Result
+contains array of angka (numbers)
+and some methods to add new Guess and add new Guess into the list of guesses
+*/
 function Result() {
     this.angka = []; // array of called numbers
 
@@ -79,17 +84,19 @@ function Result() {
 }
 
 
-// helper function for array. where should i put it?
+// HELPER function for array. where should i put it?
 var containsNum = function(arr, num){
-    return arr.some(function(elmt){ 
+    return arr.some(function(elmt){     // Array.prototype.some() returns true when some of the elements matches the description.
         return elmt === num;            // pretty slick. it immediately returns when it matches a number... i'll use this over the for.. loop
     });
 }
 
-var guess_1 = new Guess("anwari.ilman@gmail.com", [3, 9, 11, 14, 17]);
-var guess_2 = new Guess("ujangsilet@gmail.com", [6, 9, 12, 15, 18]);
-var guess_3 = new Guess("wari@360looks.com",    [7, 14, 16, 18, 22]);
-var guess_4 = new Guess("waribisnis@gmail.com", [4, 6, 15, 17, 23]);
+
+// instantiate some guesses
+var guess_1 = new Guess("first@gmail.com", [3, 9, 11, 14, 17]);
+var guess_2 = new Guess("second@gmail.com", [6, 9, 12, 15, 18]);
+var guess_3 = new Guess("third@gmail.com",    [7, 14, 16, 18, 22]);
+var guess_4 = new Guess("fourth@gmail.com", [4, 6, 15, 17, 23]);
 
 var guesses = new Guesses();
 guesses.addGuess(guess_1);
