@@ -71,8 +71,14 @@ function Result() {
     this.angka = []; // array of called numbers
 
     this.addNew = function (num) {
-        this.angka.push(num);
-        guesses.cekIsi(this.angka);
+
+        if (! this.angka.some(function(elmt){ return elmt === num; })) { // check if a number already exists in an array. needs to be refactored.
+            this.angka.push(num);
+            guesses.cekIsi(this.angka);
+        }
+        else {
+            console.log("That number is already exist. Pick a new one...");
+        }
     };
 
 }
