@@ -79,7 +79,7 @@ function Result() {
 
         if (! _.contains(this.angka, num)) { // check if a number already exists in an array. needs to be refactored.
             this.angka.push(num);
-            guesses.cekIsi(this.angka);
+            game.cekIsiGuess(this.angka);
         }
         else {
             console.log("That number is already exist. Pick a new one...");
@@ -88,31 +88,81 @@ function Result() {
 
 }
 
-    // instantiate some guesses
-    var guess_1 = new Guess("first@gmail.com", [3, 9, 11, 14, 17]);
-    var guess_2 = new Guess("second@gmail.com", [6, 9, 12, 15, 18]);
-    var guess_3 = new Guess("third@gmail.com",   [7, 14, 16, 18, 22]);
-    var guess_4 = new Guess("fourth@gmail.com", [4, 6, 15, 17, 23]);
+/*
+Class App
+This is the main controller, if you can say so...
+*/
+function App(){
 
-    var guesses = new Guesses();
-    guesses.addGuess(guess_1);
-    guesses.addGuess(guess_2);
-    guesses.addGuess(guess_3);
-    guesses.addGuess(guess_4);
+    var spanResult=$("#result");
+    var spanResults=$("#results");
+    var guesses = undefined;
+    this.result = new Result();
 
-    var result = new Result();
-    result.addNew(16);
+    this.initiate = function(){
 
-    // make sure the DOM is ready!
-    $(function(){
+        // instantiate some guesses
+        var guess_1 = new Guess("first@gmail.com", [3, 9, 11, 14, 17]);
+        var guess_2 = new Guess("second@gmail.com", [6, 9, 12, 15, 18]);
+        var guess_3 = new Guess("third@gmail.com",   [7, 14, 16, 18, 22]);
+        var guess_4 = new Guess("fourth@gmail.com", [4, 6, 15, 17, 23]);
 
-        $('#draw').click( function(e){
+        guesses = new Guesses();
+        guesses.addGuess(guess_1);
+        guesses.addGuess(guess_2);
+        guesses.addGuess(guess_3);
+        guesses.addGuess(guess_4);
 
-            var drawResult = Math.ceil(Math.random() * 25);
 
-            $("#result").text(drawResult);
-            // console.log(drawResult);
-            result.addNew(drawResult);
+        this.bindElmts(); // attach event handlers
+    };
+
+    // function to bind elements with events...
+    this.bindElmts = function(){
+        var parent=this;
+        
+        $('#draw').bind('click', function(e){
+            parent.clickDraw(e);
         });
+    }
 
-    });
+    // function to handle klikdraw
+    this.clickDraw = function(event){
+        this.drawNumber(10, 120); // n times in with t interval.
+        
+    };
+
+    // the act of picking a number and updates its corresponding text representation.
+    // param: n is the number it is called, interval is the interval the next one will be called.
+    this.drawNumber = function(n, interval){
+        var parent = this;
+        var result = Math.ceil(Math.random() * 25);
+        
+        spanResult.text(result);
+
+        if (n === 0){
+            this.executeResult(result);
+            
+        } 
+        else{ // redraw again
+            setTimeout(function(){parent.drawNumber(n-1, interval);}, interval);
+        }
+    }
+
+    this.executeResult = function(num){
+        this.result.addNew(num);
+
+        spanResults.text(this.result.angka.toString());
+    }
+
+    this.cekIsiGuess = function(num){
+        guesses.cekIsi(num);
+    }
+
+}
+
+var game = new App();
+// make sure the DOM is ready!
+$(function(){
+    game.initiate();
+});
