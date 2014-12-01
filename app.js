@@ -60,6 +60,11 @@ function Guesses() {
             }
         }
     };
+
+    // renders a view based on a the shit. ya kan?
+    this.renderView = function(){
+
+    }
 }
 
 /*
@@ -92,19 +97,31 @@ var containsNum = function(arr, num){
 }
 
 
-// instantiate some guesses
-var guess_1 = new Guess("first@gmail.com", [3, 9, 11, 14, 17]);
-var guess_2 = new Guess("second@gmail.com", [6, 9, 12, 15, 18]);
-var guess_3 = new Guess("third@gmail.com",    [7, 14, 16, 18, 22]);
-var guess_4 = new Guess("fourth@gmail.com", [4, 6, 15, 17, 23]);
+    // instantiate some guesses
+    var guess_1 = new Guess("first@gmail.com", [3, 9, 11, 14, 17]);
+    var guess_2 = new Guess("second@gmail.com", [6, 9, 12, 15, 18]);
+    var guess_3 = new Guess("third@gmail.com",   [7, 14, 16, 18, 22]);
+    var guess_4 = new Guess("fourth@gmail.com", [4, 6, 15, 17, 23]);
 
-var guesses = new Guesses();
-guesses.addGuess(guess_1);
-guesses.addGuess(guess_2);
-guesses.addGuess(guess_3);
-guesses.addGuess(guess_4);
+    var guesses = new Guesses();
+    guesses.addGuess(guess_1);
+    guesses.addGuess(guess_2);
+    guesses.addGuess(guess_3);
+    guesses.addGuess(guess_4);
 
-var result = new Result();
-result.addNew(16);
+    var result = new Result();
+    result.addNew(16);
 
-console.log(result);
+    // make sure the DOM is ready!
+    $(function(){
+
+        $('#draw').click( function(e){
+
+            var drawResult = Math.ceil(Math.random() * 25);
+
+            $("#result").text(drawResult);
+            // console.log(drawResult);
+            result.addNew(drawResult);
+        });
+
+    });
