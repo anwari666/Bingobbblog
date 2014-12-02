@@ -1,3 +1,10 @@
+/* Todo:
++ randomly pick from a list of array instead of all 25 
++ read OOP design, MVC design.
++ try to make sense of each method in a class. which method belongs to which class. 
++ look at the code again. if a function is more than 25 lines, try to refactor. 
+*/
+
 /* Class Guess
 contains email (string)
 and angka Guess (array of integers) */
@@ -69,17 +76,17 @@ function Guesses() {
 
 /*
 Class Result
-contains array of angka (numbers)
+contains array of calledNumbers
 and some methods to add new Guess and add new Guess into the list of guesses
 */
 function Result() {
-    this.angka = []; // array of called numbers
+    this.calledNumbers = []; // array of called numbers
 
     this.addNew = function (num) {
 
-        if (! _.contains(this.angka, num)) { // check if a number already exists in an array. needs to be refactored.
-            this.angka.push(num);
-            game.cekIsiGuess(this.angka);
+        if (! _.contains(this.calledNumbers, num)) { // check if a number already exists in an array. needs to be refactored.
+            this.calledNumbers.push(num);
+            game.cekIsiGuess(this.calledNumbers);
         }
         else {
             console.log("That number is already exist. Pick a new one...");
@@ -97,6 +104,9 @@ function App(){
     var spanResult=$("#result");
     var spanResults=$("#results");
     var guesses = undefined;
+
+    this.uncalledNumbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
+
     this.result = new Result();
 
     this.initiate = function(){
@@ -128,7 +138,7 @@ function App(){
 
     // function to handle klikdraw
     this.clickDraw = function(event){
-        this.drawNumber(10, 120); // n times in with t interval.
+        this.drawNumber(20, 80); // n times in with t interval.
         
     };
 
@@ -136,7 +146,7 @@ function App(){
     // param: n is the number it is called, interval is the interval the next one will be called.
     this.drawNumber = function(n, interval){
         var parent = this;
-        var result = Math.ceil(Math.random() * 25);
+        var result = this.getNextResult();
         
         spanResult.text(result);
 
@@ -149,10 +159,19 @@ function App(){
         }
     }
 
+    this.getNextResult = function(){
+        var index = Math.ceil(Math.random() * this.uncalledNumbers.length) - 1;
+        return (this.uncalledNumbers[index]);
+    }
+
     this.executeResult = function(num){
+
+        this.uncalledNumbers = _.without(this.uncalledNumbers, num); // decrement the array of uncalled numbers
+        console.log(this.uncalledNumbers.toString());
+
         this.result.addNew(num);
 
-        spanResults.text(this.result.angka.toString());
+        spanResults.text(this.result.calledNumbers.toString()); // updates result.
     }
 
     this.cekIsiGuess = function(num){
@@ -161,8 +180,10 @@ function App(){
 
 }
 
+// create a new game
 var game = new App();
-// make sure the DOM is ready!
+
+// execute when the DOM is ready!
 $(function(){
     game.initiate();
 });
