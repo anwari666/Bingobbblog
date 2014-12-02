@@ -1,0 +1,38 @@
+body {
+  text-align: center;
+  background-color: #fff;
+  font-family: lato, "myriad pro", helvetica, sans-serif; }
+
+#content {
+  margin: 0 auto;
+  width: 80%; }
+
+#bingo_table {
+  margin: 0 auto;
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle; }
+  #bingo_table td {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    border: 1px solid #000; }
+  #bingo_table td:hover {
+    cursor: pointer;
+    background: #ffa; }
+
+#result_area {
+  padding: 50px auto;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  background: black;
+  color: white;
+  border-radius: 50px;
+  font-size: 48px; }
+
+#result {
+  display: block;
+  padding: 40px auto; }
+
+/*# sourceMappingURL=style.css.map */
