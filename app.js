@@ -1,5 +1,4 @@
 /* Todo:
-+ randomly pick from a list of array instead of all 25 
 + read OOP design, MVC design.
 + try to make sense of each method in a class. which method belongs to which class. 
 + look at the code again. if a function is more than 25 lines, try to refactor. 
@@ -138,8 +137,13 @@ function App(){
 
     // function to handle klikdraw
     this.clickDraw = function(event){
-        this.drawNumber(20, 80); // n times in with t interval.
-        
+
+        if (this.uncalledNumbers.length > 0) { // make sure we have some uncalled numbers left.
+            this.drawNumber(20, 80); // n times in with t interval.
+        }
+        else {
+            console.log("all numbers have been called!");
+        }
     };
 
     // the act of picking a number and updates its corresponding text representation.
